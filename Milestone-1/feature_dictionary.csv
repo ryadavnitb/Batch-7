@@ -1,0 +1,12 @@
+,0
+FLIGHT_DATE,Flight date (proper datetime)
+AIRLINE_NAME,Full airline name
+ROUTE,"Origin - Destination (e.g., ATL - ORD)"
+DEP_HOUR,Departure hour (0–23)
+DAY_NAME,"Day of week (Monday, Tuesday, etc.)"
+MONTH_NAME,"Month name (January, February, etc.)"
+IS_DELAYED,1 if arrival delay > 15 minutes
+CANCELLATION_REASON_FULL,Readable cancellation reason
+ARRIVAL_DELAY,Arrival delay in minutes (0 for cancelled)
+WEATHER_DELAY,Delay due to weather (0 if none)
+AIRLINE_DELAY,Delay due to airline (0 if none)
