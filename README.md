@@ -50,7 +50,14 @@ Analyzed individual variables:
 - Delay Distribution: Right-skewed with median 15-30 min
 - Departure Times: Bimodal peaks at 6-8 AM and 5-7 PM
 
-#### 5. Bivariate Analysis
+#### 5. Outlier Detection
+Applied IQR method for outlier identification:
+- Detected outliers in delay, distance, and operational metrics
+- Box plot visualizations showing distribution patterns
+- Analysis of extreme values and their business significance
+- Identified that delay outliers represent critical operational events
+
+#### 6. Bivariate Analysis
 Explored relationships between variables:
 - Airline Performance: Delay rates and average delays by carrier
 - Delay Causes: Late aircraft (50%+), weather (15%), airline issues (28%)
@@ -59,9 +66,11 @@ Explored relationships between variables:
 - Hourly Analysis: 5-6 AM best, 6-7 PM worst
 - Distance Impact: Mid-range flights (1500-2000 mi) most delayed
 - Top Routes: Identified 10 busiest corridors
+- Correlation Analysis: Strong departure-arrival delay relationship, cascading effects
 
-#### 6. Statistical Validation
+#### 7. Statistical Validation
 - Central Limit Theorem: Verified sample means follow normal distribution
+- Correlation matrix analysis revealing variable relationships
 - Enables confident statistical inference despite skewed data
 - Supports future hypothesis testing and predictive modeling
 
@@ -111,6 +120,19 @@ Explored relationships between variables:
 - Mid-range (1500-2000 mi): Highest delays (~9 min avg)
 - Long flights (2000+ mi): Better performance (built-in recovery time)
 
+### Correlations and Relationships
+- Departure delays strongly predict arrival delays (correlation >0.8)
+- Late aircraft delays create cascading effects throughout the day
+- Weather delays show independence from other delay types
+- Distance correlates with air time but not significantly with delays
+- Security delays are largely independent operational events
+
+### Outlier Analysis
+- High outlier percentages in delay columns (expected in aviation data)
+- Extreme delays (3+ hours) represent critical operational failures
+- Distance outliers indicate special routes or data quality issues
+- Outliers preserved as they represent real business events requiring investigation
+
 ---
 
 ## Technologies Used
@@ -151,7 +173,7 @@ Explored relationships between variables:
 1. Advanced Statistical Analysis
    - Hypothesis testing (airline comparisons)
    - ANOVA for multi-group comparisons
-   - Correlation analysis
+   - Time series analysis
 
 2. Predictive Modeling
    - Flight delay prediction models
@@ -167,7 +189,7 @@ Explored relationships between variables:
 4. Interactive Visualizations
    - Dashboard development
    - Geospatial analysis
-   - Time-series forecasting
+   - Advanced correlation studies
 
 ---
 
@@ -199,4 +221,4 @@ This project is created for educational and analytical purposes.
 
 ---
 
-Last Updated: November 20, 2025
+Last Updated: November 24, 2025
