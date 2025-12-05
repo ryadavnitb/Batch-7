@@ -1,224 +1,126 @@
-# AirFly Insights - Airlines Flight Data Analysis
-
-A comprehensive data analysis project examining U.S. domestic flight operations in 2015, focusing on delays, cancellations, and operational patterns to derive actionable business insights.
-
----
+# AirFly Insights: US Flight Delay Analysis
 
 ## Project Overview
+This project delivers a comprehensive, step-by-step analysis of US domestic flight operations for the year 2015, focusing on delay and cancellation patterns, operational bottlenecks, and statistical validation. The workflow is organized into weekly milestones, each with explicit deliverables and technical rationale. The analysis is performed in Python using pandas, numpy, matplotlib, and seaborn, with all code and outputs documented in a Jupyter notebook.
 
-This project analyzes 5.8 million flight records from 2015, integrating data from airlines, airports, and flight operations to understand:
-- Flight delay patterns and root causes
-- Cancellation trends and reasons
-- Seasonal and temporal variations
-- Airline and route performance
-- Operational efficiency metrics
+## Data Sources and Preparation
+- **Raw Datasets:**
+  - `airlines.csv`: Contains airline IATA codes and full names for mapping carrier identities.
+  - `airports.csv`: Includes airport IATA codes, names, cities, and states for both origin and destination mapping.
+  - `flights.csv`: The main dataset with 5,819,079 flight records, including scheduled and actual times, delays, cancellations, and cause codes.
+- **Data Loading:**
+  - All datasets are loaded using pandas, with explicit path handling and memory optimization for large files.
+- **Merging:**
+  - Flights are merged with airline and airport metadata using IATA codes, resulting in a unified DataFrame with readable names and locations for all flights.
+  - Both origin and destination airport details are joined, with suffixes to distinguish columns.
+- **Cleaning:**
+  - Duplicate rows are identified and removed using sample-based and full-dataset checks.
+  - Missing values in delay columns are filled with zeros (interpreted as no delay), and cancellation columns are standardized (binary flags, reason codes).
+  - Data types are corrected: dates are parsed, categorical columns are set, and numerics are ensured for analysis.
+- **Feature Engineering:**
+  - **Date features:** Flight date, day of week, and month name extracted for temporal analysis.
+  - **Route:** Concatenation of origin and destination codes to create a unique route identifier.
+  - **Delay metrics:**
+    - Total delay calculated as the sum of all delay components.
+    - Binary delay flag (`IS_DELAYED`) set for flights with arrival delay > 15 minutes.
+    - Departure hour extracted from scheduled departure time for hourly analysis.
+    - Distance range binned for segmenting flights by length.
+  - **Holiday/seasonal flags:** Custom logic to tag flights occurring during major US holidays and winter months for seasonal impact analysis.
 
----
+## Analysis Milestones and Deliverables
 
-## Milestone 1: Data Preparation & Exploratory Analysis 
+### Milestone 1: Data Foundation (Weeks 1–2)
+- **Week 1:**
+  - Project setup: Environment configuration, library imports, and display settings for large data.
+  - Data loading: Read all three datasets, print summary statistics, and validate schema.
+  - Initial merging: Join flights with airline and airport metadata, drop redundant columns, and confirm final shape.
+- **Week 2:**
+  - Data cleaning: Remove duplicates, fill missing values, and standardize cancellation flags.
+  - Outlier detection: Apply IQR method to key numeric columns, print bounds and outlier rates.
+  - Feature engineering: Add all derived columns for subsequent analysis.
 
-### Completed Tasks
+### Milestone 2: Exploratory and Delay Analysis (Weeks 3–4)
+- **Week 3:**
+  - Univariate analysis:
+    - Top airlines by flight count (bar chart)
+    - Top origin and destination airports (horizontal bar charts)
+    - Monthly and weekday flight distributions (bar charts)
+    - Cancellation rate (pie chart)
+    - Delay distribution (histogram, focus on positive delays up to 95th percentile)
+    - Departure time distribution (bar chart by hour)
+  - Each visual is accompanied by a markdown cell with detailed insights, including interpretation of patterns, outliers, and operational context.
+- **Week 4:**
+  - Delay analysis:
+    - Average arrival delay by airline (bar chart, top 10)
+    - Total delay minutes by cause (bar chart)
+    - Average delay by month (line chart)
+    - Average delay by day of week (bar chart)
+    - Cancellation reasons (bar chart)
+    - Top 10 busiest routes (horizontal bar chart)
+    - Delay rate by airline (bar chart)
+    - Average delay by departure hour (line chart)
+    - Correlation matrix (heatmap) for all delay and operational variables
+    - Distance vs delay (bar chart by distance range)
+  - Outlier detection and box plots for key delay metrics, with explicit annotation of quartiles and medians.
+  - Correlation analysis includes both positive and negative relationships, with printed lists of strongest pairs.
 
-#### 1. Data Integration
-- Merged three datasets: airlines.csv, airports.csv, and flights.csv
-- Combined 5.8M flight records with airline names and airport information
-- Created unified dataset with origin/destination details
-- Final shape: 5,819,079 rows × 38 columns
+### Milestone 3: Network, Route, and Seasonal Insights (Weeks 5–6)
+- **Week 5:**
+  - Route analysis:
+    - Top 10 origin-destination pairs by flight count, with printed table of average delays and delay rates.
+    - Airport delay bars: Top 15 origin and destination airports by average delay (side-by-side bar charts).
+    - Route performance matrix: Heatmap of average delays for top 10 origin and destination airports, with annotation for best/worst routes and explanation of negative values (early arrivals).
+- **Week 6:**
+  - Monthly cancellation trends:
+    - Dual-axis plot of total cancellations (bar) and cancellation rate (line), with printed summary table and identification of peak months.
+  - Cancellation types:
+    - Pie chart of cancellation reasons (Airline/Carrier, Weather, NAS, Security), with code mapping and percentage breakdown.
+    - Stacked bar chart of monthly cancellations by type, showing seasonal shifts in causes.
+  - Holiday and winter impact:
+    - Multi-panel visualization of average delays, cancellation rates, weather delays, and holiday period comparison.
+    - Printed summary of winter vs summer delay and cancellation rates.
+  - Central Limit Theorem:
+    - Sampling demonstration: Draw 100 samples of 30 flights each, plot population and sampling distributions, overlay theoretical normal curve, and print summary statistics (mean, std, skewness).
+    - Explicit validation of CLT for delay averages, with interpretation of statistical power and inference reliability.
 
-#### 2. Data Cleaning
-- Handled missing values in delay columns (filled with 0)
-- Processed cancellation data (1 = cancelled, 0 = not cancelled)
-- Removed duplicate records
-- Standardized data types and formats
+## Documentation and Insights
+- Every visual is followed by a markdown cell with detailed insights, including:
+  - What the chart measures
+  - How to interpret axes, colors, and patterns
+  - Key findings, anomalies, and operational implications
+  - Statistical rationale where relevant (e.g., CLT, correlation)
+- All business-oriented language has been removed; insights focus on data-driven analysis and technical interpretation.
 
-#### 3. Feature Engineering
-Created 7 new features for enhanced analysis:
-- FLIGHT_DATE: Complete date field
-- DAY_NAME: Day of week (Monday-Sunday)
-- MONTH_NAME: Full month names
-- ROUTE: Origin → Destination pairs
-- TOTAL_DELAY: Sum of all delay types
-- IS_DELAYED: Binary indicator (>15 min)
-- DEPARTURE_HOUR: Hour of scheduled departure (0-23)
+## Data Export and Version Control
+- The cleaned and feature-enriched dataset is saved as `data/flight_cleaned.csv` for downstream analysis or modeling.
+- `.gitignore` excludes all CSV files and the `data/` folder to prevent large data from being committed.
+- All code, analysis, and outputs are tracked in `main.ipynb`.
 
-#### 4. Univariate Analysis
-Analyzed individual variables:
-- Top Airlines: Identified highest-volume carriers
-- Busiest Airports: Top 10 origin and destination hubs
-- Temporal Patterns: Monthly and daily flight distributions
-- Cancellation Rate: 1.5% industry-standard cancellation rate
-- Delay Distribution: Right-skewed with median 15-30 min
-- Departure Times: Bimodal peaks at 6-8 AM and 5-7 PM
+## Repository Structure
+- `main.ipynb`: Complete notebook with all code, analysis, and visualizations, organized by milestone and week.
+- `remove_emojis.py`: Utility script for text cleaning (if needed).
+- Raw data files: `airlines.csv`, `airports.csv`, `flights.csv` (not tracked in git).
+- Cleaned data: `data/flight_cleaned.csv` (not tracked in git).
+- `.gitignore`: Ensures large data files and outputs are not committed.
+- `README.md`: This file, documenting all project phases, methods, and deliverables.
 
-#### 5. Outlier Detection
-Applied IQR method for outlier identification:
-- Detected outliers in delay, distance, and operational metrics
-- Box plot visualizations showing distribution patterns
-- Analysis of extreme values and their business significance
-- Identified that delay outliers represent critical operational events
+## Technical Choices and Rationale
+- **Python & pandas:** Chosen for robust data handling and analysis of large datasets.
+- **Jupyter Notebook:** Enables stepwise, documented analysis with code, visuals, and narrative in one place.
+- **Matplotlib & Seaborn:** Used for high-quality, customizable visualizations.
+- **Feature engineering:** Custom columns allow for granular analysis of time, route, and operational factors.
+- **Statistical methods:** IQR for outlier detection, correlation for variable relationships, CLT for inference validation.
+- **Version control:** Git used for code and documentation, with data excluded for efficiency and privacy.
 
-#### 6. Bivariate Analysis
-Explored relationships between variables:
-- Airline Performance: Delay rates and average delays by carrier
-- Delay Causes: Late aircraft (50%+), weather (15%), airline issues (28%)
-- Seasonal Trends: June/December show highest delays
-- Weekly Patterns: Thursday/Friday worst, Saturday best
-- Hourly Analysis: 5-6 AM best, 6-7 PM worst
-- Distance Impact: Mid-range flights (1500-2000 mi) most delayed
-- Top Routes: Identified 10 busiest corridors
-- Correlation Analysis: Strong departure-arrival delay relationship, cascading effects
-
-#### 7. Statistical Validation
-- Central Limit Theorem: Verified sample means follow normal distribution
-- Correlation matrix analysis revealing variable relationships
-- Enables confident statistical inference despite skewed data
-- Supports future hypothesis testing and predictive modeling
-
----
-
-## Dataset Information
-
-### Files
-- airlines.csv: Airline codes and names (14 carriers)
-- airports.csv: Airport details with IATA codes (322 airports)
-- flights.csv: 5.8M flight records with delays, cancellations, and operations data
-- flight_cleaned.csv: Cleaned and enriched dataset (output)
-
-### Key Metrics
-| Metric | Value |
-|--------|-------|
-| Total Flights | 5,819,079 |
-| Cancellation Rate | 1.5% (89,884 flights) |
-| Cancelled Flights | 89,884 |
-| Average Delay | 4.8 minutes |
-| Delayed Flights (>15 min) | ~40% |
-| Airlines Analyzed | 14 major carriers |
-| Airports Covered | 322 U.S. airports |
-| Time Period | January - December 2015 |
-
----
-
-## Key Insights Summary
-
-### Delays
-- Best time to fly: 5-6 AM (average 12 min early arrival)
-- Worst time to fly: 6-7 PM (average 16 min late)
-- Best day: Saturday (lowest delay rate)
-- Worst days: Thursday/Friday (delays accumulate through week)
-- Best month: September (mild weather, less traffic)
-- Worst months: June (thunderstorms) and December (holiday congestion)
-
-### Root Causes
-- Late Aircraft Delays: 50%+ (cascading effect from previous flights)
-- Weather Delays: 15% (uncontrollable but predictable seasonally)
-- Airline Issues: 28% (controllable - maintenance, crew scheduling)
-- Air System: 15% (ATC and airport infrastructure)
-- Security: <3% (rare but necessary)
-
-### Distance Patterns
-- Short flights (<500 mi): Affected by taxi/gate delays
-- Mid-range (1500-2000 mi): Highest delays (~9 min avg)
-- Long flights (2000+ mi): Better performance (built-in recovery time)
-
-### Correlations and Relationships
-- Departure delays strongly predict arrival delays (correlation >0.8)
-- Late aircraft delays create cascading effects throughout the day
-- Weather delays show independence from other delay types
-- Distance correlates with air time but not significantly with delays
-- Security delays are largely independent operational events
-
-### Outlier Analysis
-- High outlier percentages in delay columns (expected in aviation data)
-- Extreme delays (3+ hours) represent critical operational failures
-- Distance outliers indicate special routes or data quality issues
-- Outliers preserved as they represent real business events requiring investigation
+## Next Steps and Extensions
+- Add predictive modeling (e.g., delay prediction, cancellation risk) using machine learning algorithms.
+- Perform deeper statistical tests (e.g., hypothesis testing, regression analysis) on delay/cancellation patterns.
+- Enhance visualizations with interactive dashboards (Plotly, Dash, Streamlit).
+- Document additional milestones and expand analysis to multi-year or multi-country datasets.
+- Collaborate with domain experts for operational recommendations or policy insights.
 
 ---
 
-## Technologies Used
+**Current Branch:** Benadict-Infant-A
 
-- Python 3.x
-- Libraries:
-  - pandas: Data manipulation and analysis
-  - numpy: Numerical computing
-  - matplotlib: Data visualization
-  - seaborn: Statistical graphics
-  - scipy: Statistical analysis (CLT verification)
-
----
-
-## Business Implications
-
-### For Airlines
-1. Operational Focus: Improve aircraft turnaround efficiency (biggest delay driver)
-2. Scheduling: Add 10-15 min buffer to June/December and 1500-2000 mi flights
-3. Maintenance: Schedule during low-traffic months (Feb, Sept)
-4. Marketing: Highlight on-time performance if competitive (>75% on-time)
-
-### For Passengers
-1. Best booking: Saturday departures, 5-7 AM flights, September travel
-2. Connection planning: 60+ min buffer for peak hours/months
-3. Critical meetings: Book early morning flights (arrive early on average)
-
-### For Airports
-1. Resource allocation: Maximum staffing 6-8 AM and 5-7 PM
-2. Gate management: More capacity needed for hub operations
-3. Infrastructure: Focus investments on top 10 busiest airports
-
----
-
-## Next Steps (Milestone 2)
-
-### Planned Activities
-1. Advanced Statistical Analysis
-   - Hypothesis testing (airline comparisons)
-   - ANOVA for multi-group comparisons
-   - Time series analysis
-
-2. Predictive Modeling
-   - Flight delay prediction models
-   - Cancellation risk assessment
-   - Route optimization
-
-3. Deep Dive Analysis
-   - Airport-specific performance
-   - Airline head-to-head comparisons
-   - Weather impact quantification
-   - Cost analysis (delay costs, cancellation impact)
-
-4. Interactive Visualizations
-   - Dashboard development
-   - Geospatial analysis
-   - Advanced correlation studies
-
----
-
-## Author
-
-Benadict Infant A
-
----
-
-## Project Timeline
-
-- Milestone 1: Data Preparation & EDA - Completed
-- Milestone 2: Advanced Analysis & Modeling - Upcoming
-- Milestone 3: Dashboard & Reporting - Planned
-
----
-
-## License
-
-This project is created for educational and analytical purposes.
-
----
-
-## Acknowledgments
-
-- Dataset source: U.S. Department of Transportation (2015 flight data)
-- Analysis framework: Pandas, NumPy, Matplotlib, Seaborn
-- Inspiration: Real-world aviation operations optimization
-
----
-
-Last Updated: November 24, 2025
+For full details, see all code and outputs in `main.ipynb`. For questions, collaboration, or further analysis, please refer to this notebook and the project structure above.
