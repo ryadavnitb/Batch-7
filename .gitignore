@@ -7,3 +7,5 @@ data/
 # Jupyter and Python cache (optional but useful)
 .ipynb_checkpoints/
 __pycache__/
+
+*.py
