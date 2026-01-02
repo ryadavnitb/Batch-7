@@ -3,9 +3,8 @@
 
 # Ignore the data folder (and its contents)
 data/
-
+images/
 # Jupyter and Python cache (optional but useful)
 .ipynb_checkpoints/
 __pycache__/
-
 *.py
