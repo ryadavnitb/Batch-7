@@ -1,7 +1,7 @@
 Final Report
 
 AirFly Insights
-Airline Operations and Delay Analysis
+
 1.Introduction
 The aviation industry plays a critical role in global transportation, where punctuality and operational efficiency are essential for passenger satisfaction and airline profitability. However, flight delays and cancellations remain significant challenges due to multiple factors such as weather conditions, airport congestion, airline operations, and air traffic control constraints.
 This project, AirFly Insights, focuses on analyzing large-scale airline operational data to identify key patterns in delays, cancellations, and overall performance. By applying data preprocessing, feature engineering, exploratory data analysis (EDA), and visualization techniques, the project aims to provide actionable insights into flight operations, time-based delays, airport performance, and airline efficiency.
