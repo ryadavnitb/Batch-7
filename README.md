@@ -89,4 +89,10 @@ Future Scope:
 - Application of machine learning algorithms for delay prediction.
 - Expansion of analysis to assess passenger impact and financial costs.
 
+- Tech Stack 
+Data Handling: pandas, numpy 
+Visualization: matplotlib, seaborn, plotly 
+Optional Dashboard: Streamlit, PowerBI 
+Documentation: Jupyter Notebook, PDF, GitHub
+
 
