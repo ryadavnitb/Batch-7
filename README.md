@@ -23,12 +23,12 @@ This project analyzes airline flight operations to understand **pricing trends, 
 
 ## 📂 Project Structure
 ├── Milestone_1st (Week 1 & 2).ipynb ( Data exploration )<br> 
-├── Milestone_2A (Week 3).ipynb (Data cleaning & preprocessing )<br> 
-├── Milestone_2B (Week 4).ipynb (Delay analysis )<br> 
+├── Milestone_2A (Week 3).ipynb ( Data cleaning & preprocessing )<br> 
+├── Milestone_2B (Week 4).ipynb ( Delay analysis )<br> 
 ├── Milestone_3A (Week 5).ipynb ( Route & time analysis )<br> 
 ├── Milestone_3B (Week 6).ipynb ( Cancellation & insights )<br>
-├── Airline Operations Insights Dashboard.pbix(Power BI)<br>
-├── Analysis of Airline Operations_ A Comprehensive Report.ppt(Final PPT)<br>
+├── Airline Operations Insights Dashboard.pbix( Power BI )<br>
+├── Analysis of Airline Operations_ A Comprehensive Report.ppt( Final PPT )<br>
 └── README.md
 
 ---
