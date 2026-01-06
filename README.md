@@ -28,6 +28,7 @@ This project analyzes airline flight operations to understand **pricing trends, 
 ├── Milestone_3A (Week 5).ipynb ( Route & time analysis )<br> 
 ├── Milestone_3B (Week 6).ipynb ( Cancellation & insights )<br>
 ├── Airline Operations Insights Dashboard.pbix<br>
+├── Analysis of Airline Operations_ A Comprehensive Report<br>
 └── README.md
 
 ---
